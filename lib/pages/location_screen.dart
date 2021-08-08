@@ -2,13 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:world_timer/services/world_time.dart';
 
-class ChooseLocationScreen extends StatefulWidget {
+class ChooseLocationScreen extends StatelessWidget {
 
-  @override
-  _ChooseLocationState createState() => _ChooseLocationState();
-}
-
-class _ChooseLocationState extends State<ChooseLocationScreen> {
 
   /* void getData(){
     // Simulate network request for a username
@@ -35,21 +30,12 @@ class _ChooseLocationState extends State<ChooseLocationScreen> {
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
   ];
 
-  void updateTime(index) async {
+  WorldTime? instance;
+
+  Future<void> updateTime(BuildContext context, index) async {
     WorldTime instance = locations[index];
     await instance.getTime();
     // Navigate back to home screen
-    Navigator.pop(context, {
-      'location': instance.location,  // arguments contains the data which is to be passed onto the next screen
-      'flag': instance.flag,
-      'time': instance.time,
-      'isDayTime': instance.isDayTime,
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
 
@@ -70,7 +56,18 @@ class _ChooseLocationState extends State<ChooseLocationScreen> {
             child: Card(
               child: ListTile(
                 onTap: (){
-                  updateTime(index);
+                  FutureBuilder(builder: (context, snapshot){
+                    if(snapshot.connectionState==ConnectionState.waiting){
+                      return CircularProgressIndicator();
+                    }
+                    else if(snapshot.connectionState==ConnectionState.done){
+                      Navigator.pop(context, {
+                        'location': instance!.location,  // arguments contains the data which is to be passed onto the next screen
+                        'flag': instance!.flag,
+                        'time': instance!.time,
+                        'isDayTime': instance!.isDayTime,
+                      });
+                    }}, future: updateTime(context, index),);
                 },
                 title: Text(locations[index].location),
                 leading: CircleAvatar(

@@ -39,7 +39,7 @@ class _HomeState extends State<HomeScreen> {
             padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
             child: Column(
               children: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
                   onPressed: () async {
                     dynamic result = await Navigator.pushNamed(context, 'location'); // Navigator is used to travel between multiple screens.
                       if(result!=null){
