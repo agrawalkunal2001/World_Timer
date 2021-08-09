@@ -1,16 +1,4 @@
-# world_timer
+# World_Timer
+A flutter app which displays the current time in various locations around the world.
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It uses a 3rd party world time API which requests and fetches updated data each time a new location is selected. Also, the UI changes its background on the basis of day or night (considering 6:00 am to 8:00 pm as day).
